@@ -1,0 +1,86 @@
+//By - Ashwyn Singh Chadha
+//36. ARRAY IMPLEMENTATION OF QUEUE
+#include<iostream.h>
+#include<conio.h>
+const int N=10;
+
+class ARRQUEUE
+{
+	int DATA[N];
+	int front;
+	int rear;
+	public:
+	ARRQUEUE(){front=rear=-1;}
+	void ADDQ();
+	void DELQ();
+	void DISPLAY();
+
+};
+
+void ARRQUEUE::ADDQ()
+{
+	if(front==N-1)
+		cout<<"OVERFLOW!";
+	else if(front==-1)
+	{
+		front++;
+		rear++;
+		cout<<"Enter data.\n";
+		cin>>DATA[rear];
+	}
+	else
+	{
+		front++;
+		for(int i=front;i>rear;i--)
+			DATA[i]=DATA[i-1];
+		cout<<"Enter data.\n";
+		cin>>DATA[rear];
+	}
+}
+
+void ARRQUEUE::DELQ()
+{
+	if(front==-1)
+		cout<<"UNDERFLOW!";
+	else
+		front--;
+}
+
+void ARRQUEUE::DISPLAY()
+{
+	if(front==-1)
+		cout<<"Nothing to display.\n";
+	else
+		for(int i=front;i>=rear;i--)
+			cout<<DATA[i]<<endl;
+}
+
+void main()
+{
+	ARRQUEUE Q;
+	char ch;
+	do
+	{
+		cout<<"1.ADD\n2.DELETE\n3.DISPLAY\n4.QUIT\n";
+		ch=getche();
+		switch(ch)
+		{
+			case '1':
+				Q.ADDQ();
+				break;
+			case '2':
+				Q.DELQ();
+				break;
+			case '3':
+				Q.DISPLAY();
+				break;
+			case '4':
+				break;
+			default:
+				cout<<"Wrong Choice. Try again.\n";
+
+		}
+
+	}while(ch!='4');
+
+}
