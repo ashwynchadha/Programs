@@ -1,0 +1,87 @@
+//By - Ashwyn Singh Chadha
+//9. WAP TO DEFINE STRLEN, STRCPY, STRCAT, ISUPPER, ISALNUM, ISDIGIT
+#include<iostream.h>
+#include<stdio.h>
+
+int isupper(char ch)
+{
+	if(ch>=65 && ch<=90)
+		return 1;
+	else
+		return 0;
+}
+
+int strlen(char str[])
+{
+	int i=0;
+	while(str[i]!='\0')
+	i++;
+
+	return i;
+}
+
+void strcat(char *str1, char *str2)
+{
+	while(*str1!='\0')
+		str1++;
+
+	while(*str2!='\0')
+	{
+		*str1=*str2;
+		str1++;
+		str2++;
+	}
+
+
+}
+
+int isdigit(char ch)
+{
+	if(ch>=48 && ch<=57)
+		return 1;
+	else
+		return 0;
+}
+
+int isalnum(char ch)
+{
+	if((ch>=48 && ch<=57) || (ch>=65 && ch<=90) || (ch>=97 && ch<=122))
+		return 1;
+	else
+		return 0;
+}
+
+void strcpy(char *str1, char *str2)
+{
+	while(*str2!='\0')
+	{
+		*str1=*str2;
+		str1++;
+		str2++;
+	}
+	*str1='\0';
+}
+
+
+
+void main()
+{
+	char str[30]="chadha";
+	cout<<str<<" has a length of "<<strlen(str)<<endl;        //Use of strlen
+	strcpy(str,"ashwyn");           //Use of strcpy
+	cout<<"The copied string is "<<str<<endl;
+	strcat(str,"chadha");           //Use of strcat
+	cout<<"The concatenated string is "<<str<<endl;
+	char ch='5';
+	if(isalnum(ch))                 //Use of alnum
+		cout<<ch<<" is alphanumeric.\n";
+	if(isdigit(ch))                 //Use of isdigit
+		cout<<ch<<" is a digit.\n";
+
+	ch='A';                         //Use of isupper
+	if(isupper(ch))
+		cout<<ch<<" is uppercase.\n";
+
+
+
+}   
