@@ -1,0 +1,56 @@
+//By - Ashwyn Singh Chadha
+//19. DEFINE OVERLOADED FUNCTION AREA TO CALCULATE IT FOR SQ,RECT & TRIANGLE
+#include<math.h>
+#include<iostream.h>
+
+float Area(float A)
+	{
+	float ar=A*A;
+	return ar;
+	}
+
+float Area(float A,float B)
+	{
+	float ar=A*B;
+	return ar;
+	}
+
+float Area(float A,float B,float C)
+	{
+	float S=(A+B+C)/2;
+	float ar=sqrt((S)*(S-A)*(S-B)*(S-C));
+	return ar;
+	}
+
+void main()
+{
+	cout<<"Press: \n"
+	"1. Square\n2. Rectangle\n3.Triangle\nto calculate their respective areas.\n";
+	float ar;
+	int f;
+	cin>>f;
+	switch(f)
+		{
+		case 1:
+		cout<<"Enter SIde\n";
+		float r;
+		cin>>r;
+		ar=Area(r);
+		break;
+		case 2:
+		cout<<"Enter 2 sides\n";
+		float a,b;
+		cin>>a>>b;
+		ar=Area(a,b);
+		break;
+		case 3:
+		cout<<"Enter the 3 sides of the triangle.\n";
+		float w,y,z;
+		cin>>w>>y>>z;
+		ar=Area(w,y,z);
+		break;
+		default:
+		cout<<"Wrong character. Try again.\n";
+		}
+	cout<<"Area of desired figure is =\n"<<ar;
+}
