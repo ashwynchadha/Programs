@@ -1,0 +1,56 @@
+//By - Ashwyn Singh Chadha
+#include<fstream.h>
+#include<process.h>
+#include<string.h>
+#include<iostream.h>
+
+
+int ispalin(char word[])
+{
+	int ispal=1;
+	int n=strlen(word);
+	for(int i=0;i<=(n/2);i++)
+	{
+		if(word[i]!=word[n-i-1])
+		{
+		ispal=0;
+		break;
+		}
+	}
+
+	return ispal;
+}
+
+
+int main()
+{
+	cout<<"Welcome! Please make sure there is a full stop at the end of the file\n"
+   "so that the program is successfully able to read the last word.\n\n";
+	ifstream fin("STORY.TXT");
+	char word[20];
+	int i=0,f=0;
+
+
+	cout<<"The palindromes in the file are - \n";
+
+	while(fin.read((char*) &word[i], sizeof(word[i])))
+	 {
+		if(word[i]==' ' || word[i]=='\r' || word[i]=='\n' || word[i]=='.')
+			{
+			word[i]='\0';
+			i=0;
+			if(ispalin(word))
+				{
+				cout<<word<<endl;
+				f++;
+				}
+			}
+
+		else
+		i++;
+	 }
+
+	cout<<"Total number of palindromes = "<<f;
+	cout<<"\n\nTHE END";
+	return 0;
+}
