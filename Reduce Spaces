@@ -1,0 +1,38 @@
+//By - Ashwyn Singh Chadha
+//45. WAP FOR REDUCING EXCESS SPACES BETWEEN WORDS IN A FILE
+#include<stdio.h>
+#include<fstream.h>
+#include<process.h>
+
+
+int main()
+{
+	ifstream fin("STORY.TXT");
+	ofstream fout("TEMP1.TXT");
+
+
+	int i=0;
+	char ch;
+
+	while(fin.read((char*) &ch, sizeof(ch)))
+		{
+			if(ch!=' ')
+			{
+			fout.put(ch);
+			i=0;
+			}
+
+			else
+			{
+			if(i==0)
+			fout<<ch;
+			i=1;
+			}
+		}
+
+		fin.close();
+		fout.close();
+		remove("STORY.TXT");
+		rename("TEMP1.TXT","STORY.TXT");
+return 0;
+	}
