@@ -1,0 +1,92 @@
+//By- Ashwyn Singh Chadha
+//48. WAP A MENU BASED OOP TO SIMULATE A BANK
+
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+
+class customer
+{
+	private:
+		long double balance;
+		char name[20];
+		public:
+			customer()
+			{
+				clrscr();
+				cout<<"Please enter your name: \n";
+				gets(name);
+				balance=5000;
+			}
+			void withdraw()
+			{
+				clrscr();
+				long double x;
+
+				cout<<"Enter the amount that you would like to withdraw.\n";
+				cin>>x;
+				if(x<=balance)
+				{
+					cout<<"Rs. "<<x<<" successfully withdrawn.\n";
+					balance-=x;
+					cout<<"Resultant balance = "<<balance;
+
+				}
+				else
+				{
+					cout<<"Sorry, balance insufficient for withdrawal. Please try again.\n";
+
+				}
+			}
+			void deposit()
+			{
+            clrscr();
+				long double x;
+				cout<<"Enter the amount you would like to deposit.\n";
+				cin>>x;
+				balance+=x;
+				cout<<"Balance succesfully updated.\nCurrent balance stands: Rs"<<balance;
+			}
+
+			void show()
+			{
+				cout<<"\nDear Mr. "<<name<<endl;
+				cout<<"Your current balance stands as: Rs "<<balance;
+			}
+
+
+};
+
+void main()
+{
+	cout<<"Press any key to open an account.";
+	char aisehi;
+	aisehi=getche();
+	customer C1;
+	cout<<"Press any key....\n";
+	getche();
+	clrscr();
+	int a=5;
+	while(a==5)
+	{
+	cout<<"\n\nPress any key....\n";
+	getche();
+	clrscr();
+	cout<<"Press the corresponding number for function.\n"
+	"1. View Details\n2. Deposit\n3. Withdraw";
+	char choice;
+	choice=getche();
+	switch(choice)
+	{
+	case'1':
+	C1.show();
+	break;
+	case'2':
+	C1.deposit();
+	break;
+	case'3':
+	C1.withdraw();
+	break;
+	}
+	}
+}
