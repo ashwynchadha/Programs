@@ -1,0 +1,182 @@
+#include<fstream.h>
+#include<process.h>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+
+class Person
+{
+	char Name[30];
+	unsigned int rollno;
+	char clsc[4];
+	public:
+	void getdata();
+	void showdata();
+	int check1(char sn[]);
+	int check2(int x);
+
+};
+
+	void displayall()
+	{
+		Person P;
+		ifstream f1;
+		f1.open("ADDRESS.DAT",ios::binary);
+		while(f1.read((char*) &P, sizeof(P)))
+		P.showdata();
+		f1.close();
+	}
+
+	int Person::check1(char sn[])
+	{
+		if(strcmp(Name,sn)==0)
+		return 1;
+		else
+		return 0;
+	}
+
+	int Person::check2(int x)
+	{
+		if(rollno==x)
+		return 1;
+		else
+		return 0;
+	}
+
+
+	void Person::showdata()
+	{
+		cout<<"Name - "<<Name<<endl;
+		cout<<"Class and Section - "<<clsc<<endl;
+		cout<<"Roll Number - "<<rollno<<endl;
+	}
+
+	void Person::getdata()
+	{
+		cout<<"Enter name.\n";
+		gets(Name);
+		Name[strlen(Name)]='\0';
+		cout<<"\nEnter class and section.\n";
+		cin>>clsc;
+
+		cout<<"\nEnter roll number.\n";
+		cin>>rollno;
+	}
+
+	void append()
+	{
+	Person P;
+	P.getdata();
+	fstream f1;
+	f1.open("ADDRESS.DAT",ios::binary|ios::app);
+	f1.write((char*) &P, sizeof(P));
+	f1.close();
+	}
+
+
+	void search1()
+	{
+		Person P;
+		cout<<"Enter name you want to search by.\n";
+		char sn[30];
+		gets(sn);
+		int n=0;
+		fstream fin("ADDRESS.DAT",ios::binary|ios::in);
+
+		while(fin.read((char*) &P, sizeof(P)))
+			if(P.check1(sn)==1)
+			{
+				n++;
+				P.showdata();
+				cout<<endl;
+			}
+
+			if(n==0)
+			cout<<"Search unsuccesful\n";
+			fin.close();
+
+	}
+
+	void search2()
+	{
+	Person P;
+		cout<<"Enter roll number you want to search by.\n";
+		int x;
+
+		cin>>x;
+		int n=0;
+		fstream fin("ADDRESS.DAT",ios::binary|ios::in);
+
+		while(fin.read((char*) &P, sizeof(P)))
+			if(P.check2(x)==1)
+			{
+				n++;
+				P.showdata();
+				cout<<endl;
+			}
+
+			if(n==0)
+			cout<<"Search unsuccesful\n";
+			fin.close();
+
+	}
+
+
+	void modify()
+	{
+	getche();
+	}
+	void delet()
+	{
+	getche();
+	}
+
+
+
+
+void main()
+{
+	gotoxy(15,15);
+	cout<<"FILING PROGRAM\n	  By - Ashwyn Singh Chadha";
+	cout<<"\n\nPress any key to continue\n";
+	getche();
+	gotoxy(0,0);
+	restart:
+	clrscr();
+	cout<<"1. Append a record.\n";
+	cout<<"2. Search by NAME.\n";
+	cout<<"3. Search by ROLL NUMBER.\n";
+	cout<<"4. Edit/Modify Records.\n";
+	cout<<"5. DELETE a record.\n";
+	cout<<"6. Display All Records\n";
+	cout<<"7. EXIT.\n";
+	char ch;
+	cout<<"Enter number for corresponding function.\n";
+	ch=getche();
+	switch(ch)
+	{
+		case'1':
+		append();
+		break;
+		case'2':
+		search1();
+		break;
+		case'3':
+		search2();
+		break;
+		case'4':
+		modify();
+		break;
+		case'5':
+		delet();
+		break;
+		case'6':
+		displayall();
+		case'7':
+		exit(0);
+		default:
+		cout<<"Please try again.";
+	}
+
+	goto restart;
+}
