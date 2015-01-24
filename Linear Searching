@@ -1,0 +1,116 @@
+//LINEAR SEARCHING - EXTENSIVE
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#include<stdio.h>
+#include<string.h>
+
+void array();
+void string();
+int tryagain();
+
+void main()
+{
+restart:
+cout<<"What would you like to enter?\n"
+"1. A series of numbers.\n"
+"2. A word or sentence.\n";
+cout<<"\nEnter the corresponding number for the function.\n";
+	int flag;
+	do
+	{
+	char choice;
+	choice=getche();
+	switch(choice)
+		{
+		case '1':
+		array();
+		break;
+		case '2':
+		string();
+		break;
+		default:
+		cout<<"Wrong, try again.\n";
+		flag=1;
+		}
+	}while(flag==1);
+	int n=tryagain();
+	if(n==1)
+	goto restart;
+	else
+	exit(0);
+	}
+
+
+
+	int tryagain()
+	{
+	char choice='\r';
+	cout<<"\n\nPress Enter to do it again.\n";
+	choice=getche();
+	if(choice=='\r')
+	{
+	clrscr();
+	return 1;
+	}
+	else
+	return 0;
+	}
+
+
+
+	void string()
+	{
+	char str[50],data,flag=0;
+	cout<<"Enter the word or sentence:-\n";
+	gets(str);
+	int n=strlen(str);
+	cout<<"Enter the character that you would like to search for:-\n";
+	cin>>data;
+	for(int i=0;i<n;i++)
+	{
+	if(str[i]==data)
+		{
+		flag=1;
+		i++;
+		break;
+		}
+	}
+	if(flag==1)
+	{
+	cout<<"The character you specified was found at the: \n"<<i;
+	cout<<"th position.\n";
+	}
+	else
+	cout<<"The character you specified was not found.\n";
+	}
+
+	void array()
+	{
+	cout<<"How many numbers would you like to enter:\n";
+	int f;
+	cin>>f;
+	float arr[50],data;
+	int flag=0;
+	cout<<"\nEnter the numbers:-\n";
+	for(int i=0;i<f;i++)
+	cin>>arr[i];
+
+	cout<<"Enter the number that you would like to check against:-\n";
+	cin>>data;
+	for(int j=0;j<f;j++)
+	{
+	if(arr[j]==data)
+	{
+	j++;
+	flag=1;
+	break;
+	}
+	}
+
+	if(flag==1)
+	cout<<"The data you specified was found at the "<<j<<"th position.\n";
+	else
+	cout<<"The data you specified was not found.\n";
+	}
+
