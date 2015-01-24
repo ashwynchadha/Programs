@@ -1,0 +1,92 @@
+//BY - Ashwyn Singh Chadha
+//39. LINKED LIST IMPLEMENTATION OF STACK
+#include<iostream.h>
+#include<stdio.h>
+#include<process.h>
+
+struct NODE
+{
+	char Name[30];
+	char Email[40];
+	NODE* Next;
+};
+
+class STACK
+{
+	NODE *TOP;
+	public:
+	STACK() {TOP=NULL;}
+	void PUSH();
+	void POP();
+	void DISPLAY();
+	~STACK() {delete TOP;}
+};
+
+void STACK::DISPLAY()
+{
+	NODE* Temp;
+	Temp=TOP;
+	while(Temp!=NULL)
+	{
+		cout<<"Name:- "<<Temp->Name;
+		cout<<"\nEmail:- "<<Temp->Email;
+		Temp=Temp->Next;
+	}
+
+}
+
+void STACK::PUSH()
+{
+	NODE *Temp=new NODE;
+	cout<<"Enter name of node:\n";
+	gets(Temp->Name);
+	cout<<"\nEnter email of node:\n";
+	gets(Temp->Email);
+
+	Temp->Next=TOP;       //The Address of the previous TOP is stored in the next for the new node
+	TOP=Temp;             //THe Address of previous TOP (The first node), is changed to the address of the new node
+}
+
+void STACK::POP()
+{
+	if(TOP==NULL)
+	cout<<"Action denied. Stack underflow.\n";
+	else
+	{
+		NODE*Temp;
+		Temp=TOP;
+		TOP=TOP->Next;
+		delete Temp;
+	}
+}
+
+void main()
+{
+	STACK S;
+	int choice=0;
+	while(choice!=4)
+	{
+		cout<<"1. PUSH\n2. POP\n3. DISPLAY\n4. EXIT\n"
+		"Enter your choice\n";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+			S.PUSH();
+			break;
+			case 2:
+			S.POP();
+			break;
+			case 3:
+			S.DISPLAY();
+			break;
+			case 4:
+			exit(0);
+		}
+	cout<<endl;
+	}
+
+}
+
+
+
