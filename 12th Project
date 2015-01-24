@@ -1,0 +1,283 @@
+/* LIBRARY
+12TH PROJECT
+BY - ASHWYN SINGH CHADHA
+S7-D
+*/
+
+#include<fstream.h>
+#include <conio.h>
+#include<stdio.h>
+#include<string>
+
+void ADD();
+void SEARCH1();
+void SEARCH2();
+void MODIFY();
+void DISPLAYALL();
+void BORROW();
+void RETURN();
+
+class Book
+{
+	private:
+		char Name[50];
+		char Author[30];
+		char Status[20];
+		char MemberID[20];
+	public:
+		Book()
+		{
+			strcpy(Status,"Available");
+			strcpy(MemberID,'\0');
+		}
+		void getdata();
+		void showdata();
+		void borrow1(char mID[]);
+		void return1();
+		int check1(char nm[]);
+		int check2(char au[]);
+};
+
+void Book::borrow1(char mID[])
+{
+	strcpy(MemberID,mID);
+	strcpy(Status,"Unavailable");
+}
+
+void Book::return1()
+{
+	strcpy(Status,"Available");
+	strcpy(MemberID,"\0");
+}
+
+
+int Book::check1(char nm[])
+{
+	if(strcmpi(nm,Name)==0)
+		return 1;
+	else
+		return 0;
+}
+
+int Book::check2(char au[])
+{
+	if(strcmpi(au,Author)==0)
+		return 1;
+	else
+		return 0;
+}
+
+
+void Book::showdata()
+{
+	cout<<"Name - "<<Name<<endl;
+	cout<<"Author - "<<Author<<endl;
+	cout<<"Status - "<<Status<<endl;
+}
+
+void Book::getdata()
+{
+	cout<<"Enter name.\n";
+	gets(Name);
+	cout<<"\nEnter author.\n";
+	gets(Author);
+	cout<<"\nEnter status.\n";
+	cin>>Status;
+}
+
+void main()
+{
+	gotoxy(20,20);
+	cout<<"LIBRARY\nBY:-Ashwyn Singh Chadha\nPress any key to continue.\n";
+	getch();
+
+	char flag=0;
+	do
+	{
+		clrscr();
+		cout<<"Press corresponding number to:\n\n"
+		"1. ADD A Book\n"
+		"2. SEARCH for a book(by name)\n"
+		"3. SEARCH for a book(by author)\n"
+		"4. MODIFY book details\n"
+		"5. DISPLAY ALL records\n"
+		"6. BORROW a book\n"
+		"7. RETURN a book\n";
+		char choice;
+		choice=getche();
+
+		switch(choice)
+		{
+			case'1':
+				ADD();
+				break;
+			case'2':
+				SEARCH1();
+				break;
+			case'3':
+				SEARCH2();
+				break;
+			case'4':
+				MODIFY();
+				break;
+			case'5':
+				DISPLAYALL();
+				break;
+			case'6':
+				BORROW();
+				break;
+			case '7':
+				RETURN();
+			default:
+				cout<<"Please try again\n";
+		}
+
+		cout<<"Press 0 to exit, any other key to continue\n";
+		flag=getche();
+	}while(flag!=0);
+}
+
+void ADD()
+{
+	clrscr();
+	fstream f1("LIBRARY1.DAT",ios::binary|ios::app);
+	Book B;
+	B.getdata();
+	f1.write((char*) &B, sizeof(B));
+	f1.close();
+}
+
+void SEARCH1()
+{
+	int flag=0;
+	clrscr();
+	cout<<"Enter name of book.\n";
+	char nm[30];
+	gets(nm);
+	Book B;
+	ifstream f1("LIBRARY1.DAT",ios::binary);
+	while(f1.read((char*) &B, sizeof(B)))
+	{
+	if(B.check1(nm))
+	{
+	cout<<endl<<endl;
+	flag=1;
+	B.showdata();
+	}
+	if(flag==0)
+	cout<<"\n\nNo matches found\n";
+	}
+	f1.close();
+}
+
+
+void SEARCH2()
+{
+	int flag=0;
+	clrscr();
+	cout<<"Enter author of book.\n";
+	char au[30];
+	gets(au);
+	Book B;
+	ifstream f1("LIBRARY1.DAT",ios::binary);
+	while(f1.read((char*) &B, sizeof(B)))
+	{
+	if(B.check2(au))
+	{
+	cout<<endl<<endl;
+	flag=1;
+	B.showdata();
+	}
+	}
+		if(flag==0)
+	cout<<"\n\nNo matches found\n";
+	f1.close();
+}
+
+void MODIFY()
+{
+	int flag=0;
+	cout<<"Enter name of the book whose records you would like to modify\n";
+	char nm[30];
+	gets(nm);
+
+	fstream f1("LIBRARY1.DAT",ios::binary|ios::in|ios::app);
+	Book B;
+
+	while(f1.read((char*) &B, sizeof(B)))
+	{
+	if(B.check1(nm))
+	{
+	flag=1;
+	break;
+	}
+	}
+	if(flag==1)
+	{
+	f1.seekg(-sizeof(B));
+	cout<<"Enter details:\n";
+	B.getdata();
+	f1.write((char*) &B, sizeof(B));
+	}
+	else
+	cout<<"No record found.\n";
+	f1.close();
+}
+
+void DISPLAYALL()
+{
+	ifstream fin("LIBRARY1.DAT",ios::binary);
+	Book B;
+	while(fin.read((char*) &B,sizeof(B)))
+	B.showdata();
+}
+
+void BORROW()
+{
+	char nm[50],mID[30];
+	int flag=0;
+	cout<<"Enter name of book.\n";
+	gets(nm);
+	Book B;
+	fstream f1("LIBRARY1.DAT",ios::binary|ios::in|ios::app);
+	while(f1.read((char*) &B, sizeof(B)))
+	{
+		if(B.check1(nm)==1)
+		{
+		flag=1;
+		cout<<"Enter Member ID\n";
+		gets(mID);
+		B.borrow1(mID);
+		f1.seekp(-sizeof(B));
+		f1.write((char*) &B, sizeof(B));
+		}
+	}
+	if(flag==1)
+	cout<<"Borrowed.\n";
+	else
+	cout<<"No match found.\n";
+}
+
+void RETURN()
+{
+	char nm[50];
+	int flag=0;
+	cout<<"Enter name of book.\n";
+	gets(nm);
+	Book B;
+	fstream f1("LIBRARY1.DAT",ios::binary|ios::in|ios::app);
+	while(f1.read((char*) &B, sizeof(B)))
+	{
+		if(B.check1(nm)==1)
+		{
+		flag=1;
+		B.return1();
+		f1.seekp(-sizeof(B));
+		f1.write((char*) &B, sizeof(B));
+		}
+	}
+	if(flag==1)
+	cout<<"Returned.\n";
+	else
+	cout<<"No match found.\n";
+}
