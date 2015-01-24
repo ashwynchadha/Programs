@@ -1,0 +1,207 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<time.h>
+
+void rules();
+void start();
+void question1();
+void question2();
+void question3();
+
+
+//MAIN FUNCTION (HOUSES CALLS TO ALL OTHER FUNCTIONS)
+void main()
+{
+
+	rules();
+	start();
+
+}
+
+
+
+
+
+//RULES OF THE GAME
+	void rules()
+{
+
+	cout<<"Welcome to Kaun Banega Crorepati!!\nI'm Ashwyn Chadha and I'll\nbe your host for the evening."
+	"\n1. As you must know, the game consists of 13 questions.\n"
+	"2. Question 1 is for Rs. 5000 and Question 13 is for 5 CRORES!!\n  Each succesful question doubles the value of the\nprevious question's prize money.\n"
+	"3. You can use as much time as you need.\n"
+	"4. You have three lifelines at hand\n  i.e.audience poll, phone a friend, or ask the expert.\n  The respective number for each of these is 1,2 and 3 respectively.\n5.Pressing these numbers at"
+	" any point in the game\nwill lead to use of these lifelines.\n"
+	"6. Press 0 at any point in the game to quit.\n";
+}
+
+
+
+
+
+//SHALL WE START??
+	void start()
+{
+	wrongcharstart:
+	char choice1 = 'a';
+	cout<<"\n\nShall we start the game? (yes/no)\n";
+	choice1=getche();
+	if (choice1=='n')
+	exit(0);
+	else if (choice1=='y')
+	{
+	cout<<"\n\nO.K, let's begin!!\n\n\n";
+	question1();
+	}
+	else
+	{
+	cout<<"\n\nWrong starting character. Try Again......\n";
+	goto wrongcharstart;
+	}
+}
+
+
+
+
+
+//QUESTION 1 :- DATA AND QUESTION DISPLAY
+	void question1()
+{
+	int ques1;
+	srand ( time(NULL) );
+	ques1 = rand() %5+1;
+	switch (ques1)
+	{
+	case 1:
+	cout<<"Q. Who sang the theme song for the 2010 Commonwealth Games?\n"
+	"A:- Farhan Akhtar                  B:- Salim Merchant\n"
+	"C:- A.R. Rahman                    D:- Sunidhi Chauhan\n";
+	break;
+	case 2:
+	cout<<"Q. What is the unique record that Sachin Tendulkar\n   achieved in March 2012?\n"
+	"A. 6 Sixes in Anoverin Test        B. Double Century in T20\n"
+	"C. 100th International Century     D. 400 Runs in a Test Inning.\n";
+	break;
+	case 3:
+	cout<<"Q. Which of these words is used for a person\n    under the control of another?\n"
+	"A:- Joker                          B:- Madari\n"
+	"C:- Kathputli                      D:- Chaploos\n";
+	break;
+	case 4:
+	cout<<"Q. According to beliefs, which of these Gods reside on Mount Kailash?\n"
+	"A:- Indra                          B:- Vishnu\n"
+	"C:- Shiva                          D:- Brahma\n";
+	break;
+	case 5:
+	cout<<"Q.  According to the song from ‘Housefull 2', where is\nAnarkali going after leaving “Salim Ki Galli”?\n"
+	" A:- Casino                          B:- Shopping\n"
+	" C:- Disco                           D:- Cinema\n";
+	break;
+	}
+
+
+//ANSWER1 :- RIGHT OR WRONG?
+	char answer1 = 'a';
+	wrongchar1:
+	cout<<"   \nEnter the answer (a/b/c/d)\n";
+	answer1=getche();
+	if (answer1=='c')
+	{
+	cout<<"\nCorrect Answer! You just won Rs. 5000!!\n\n\n\n";
+	question2();
+	}
+	else if (answer1=='a' || answer1=='b' || answer1=='d')
+	{
+	cout<<"Awwww. You lost the game!! Sorry!\n"
+	"You have won a total of Rs.0!!\n";
+	exit(0);
+	}
+	else if (answer1 == '0')
+	{
+	cout<<"You were not able to win any money.\n";
+	exit(0);
+	}
+	else
+	{
+	cout<<"Wrong character. Try again....\n";
+	goto wrongchar1;
+	}
+}
+
+
+
+
+
+//QUESTION 2 DATA AND DISPLAY
+	void question2()
+{
+	cout<<"\n\n\nOK, get ready for your second question for Rs. 10,000!!\n\n\n\n\n\n";
+	int ques2;
+	srand ( time(NULL) );
+	ques2 = rand() %5+1;
+	switch (ques2)
+	{
+	case 1:
+	cout<<"Which of the following animals can be referred to as an amphibian?\n"
+	"A. Monkey                              B. Turtle\n"
+	"C. Seagull                             D. Chipmunk\n";
+	break;
+	case 2:
+	cout<<"Which of the following is a name for the study of tiny living things?\n"
+	"A. Zoology                             B. Microbiology\n"
+	"C. Macrobiology                        D. Technology";
+	break;
+	case 3:
+	cout<<"Which if the following teams recently won the EURO(2012)??\n"
+	"1. Italy										 B. Spain\n"
+	"2. Portugal									 D. Germany\n";
+	break;
+	case 4:
+	cout<<"Just trying this right now!4\n";
+	break;
+	case 5:
+	cout<<"Just trying this right now!5\n";
+	break;
+	}
+
+
+//ANSWER2 :- RIGHT OR WRONG??
+	char answer2 = 'b';
+	wrongchar2:
+	cout<<"   \nEnter the answer (a/b/c/d)\n";
+	answer2=getche();
+	if (answer2=='b')
+	{
+	cout<<"\nCorrect Answer! You just won Rs. 10,000!!\n\n\n\n\n";
+	question3();
+	}
+	else if (answer2=='a' || answer2=='c' || answer2=='d')
+	{
+	cout<<"Awwww. You lost the game!! Sorry!\n"
+	"You have won a total of Rs. 5,000!!\n";
+	exit(0);
+	}
+	else if (answer2 == '0')
+	{
+	cout<<"Congratulations! You are exiting the game with Rs. 5,000\n";
+	exit(0);
+	}
+	else
+	{
+	cout<<"Wrong character. Try again....\n\n\n\n";
+	goto wrongchar2;
+	}
+}
+
+
+
+
+
+//QUESTION3 DATA AND DISPLAY
+void question3()
+{
+	cout<<"Whoa, slow down!! I/m not quite there yet!";
+}
