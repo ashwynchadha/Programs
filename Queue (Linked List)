@@ -1,0 +1,96 @@
+//bY - Ashwyn Singh Chadha
+//40. LINKED LIST IMPLEMENTATION OF QUEUE
+#include<iostream.h>
+#include<stdio.h>
+#include<process.h>
+
+struct NODE
+{
+	char Name[30];
+	int Marks;
+	NODE *Next;
+};
+
+class QUEUE
+{
+	NODE *front;
+	NODE *rear;
+	public:
+	QUEUE() {front=rear=NULL;}
+	void ADDQ();
+	void DELQ();
+	void DISPLAY();
+};
+
+void QUEUE::ADDQ()
+{
+	NODE *Temp;
+	Temp=new NODE;
+	cout<<"Enter name of new node.\n";
+	gets(Temp->Name);
+	cout<<"Enter marks.\n";
+	cin>>Temp->Marks;
+	Temp->Next=NULL;
+	if(front==NULL)
+		front=Temp;
+	else
+		rear->Next=Temp;
+	rear=Temp;
+}
+
+void QUEUE::DELQ()
+{
+	if(front==NULL)
+		cout<<"Queue underflow.\n";
+	else
+	{
+		NODE *Temp;
+		Temp=front;
+		front=front->Next;
+		delete Temp;
+	}
+}
+
+void QUEUE::DISPLAY()
+{
+	if(front==NULL)
+		cout<<"Nothing to display.\n";
+	else
+	{
+		NODE *Temp=front;
+		while(Temp!=NULL)
+		{
+			cout<<"Name - "<<Temp->Name<<endl;
+			cout<<"Marks = "<<Temp->Marks<<endl;
+			Temp=Temp->Next;
+		}
+	}
+}
+
+void main()
+{
+	QUEUE Q;
+	int choice=0;
+	while(choice!=4)
+	{
+		cout<<"1. INSERT\n2. DELETE\n3. DISPLAY\n4. EXIT\n"
+		"Enter your choice\n";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				Q.ADDQ();
+				break;
+			case 2:
+				Q.DELQ();
+				break;
+			case 3:
+				Q.DISPLAY();
+				break;
+			case 4:
+				exit(0);
+		}
+	cout<<endl;
+	}
+
+}
