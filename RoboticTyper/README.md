@@ -2,4 +2,6 @@ Files in this directory are programs written for the LegoNXT. My team and I rebu
 
 This program was built to help anyone who is disabled. Being able to use a computer is an increasingly essential skill. We didn't have the resources to use voice recognition software, but the idea was that anyone who couldn't type could use our machine. Configured to the voice recognition instead of raw text, the machine will take input from an individual's voice, and type it into the keyboard. 
 
+Note: This program was compiled using RobotC, a compiler specific to the LegoNXT, with additional functionality to help run motors and motor encoders. For a full demonstration, please compile using RobotC or contact administrator using details below.
+
 For more information or documentation, please contact: aschadha@uwaterloo.ca
