@@ -1,0 +1,32 @@
+//REVERSING THE WORDS (ONLY THE WORDS)
+#include<iostream.h>
+#include<string.h>
+#include<conio.h>
+#include<stdio.h>
+
+void main()
+{
+	char str[50],c;
+	int f=0,j=0,x;
+	cout<<"Enter string:- \n";
+	gets(str);
+
+	int n=strlen(str);
+
+	for(int i=0;i<=n;i++)
+	if(str[i]==' '|| str[i]=='\0' )
+	{
+	x=i-1;
+	for(f,x;f<((i+j)/2);f++,x--)
+	{
+	c=str[f];
+	str[f]=str[x];
+	str[x]=c;
+	}
+	f=i+1;
+	j=f;
+	}
+
+	cout<<str;
+
+}

@@ -1,0 +1,88 @@
+//By - Ashwyn Singh Chadha
+//16. DECLARE AND DEFINE CLASS STUDENT FOR NAME,MARKS AND PASS STATUS
+#include<iostream.h>
+#include<string.h>
+#include<stdio.h>
+#include<conio.h>
+#include<process.h>
+
+class STUDENT
+{
+	char name[20];
+	int marks[5];
+	void result();
+	int cutoff;
+
+	public:
+	void getdata();
+	void showdata();
+	void setcutoff();
+};
+
+void STUDENT::getdata()
+{
+	cout<<"Enter name\n";
+	gets(name);
+	cout<<"Enter marks in 5 subjects:\n";
+	for(int i=0;i<5;i++)
+		cin>>marks[i];
+}
+
+void STUDENT::showdata()
+{
+	cout<<"Name "<<name<<endl<<"Marks:\n";
+	for(int i=0;i<5;i++)
+		cout<<marks[i]<<' ';
+	cout<<"\n";
+	result();
+ }
+
+void STUDENT::result()
+ {
+	int s=0;
+	for(int i=0;i<5;i++)
+	  s=s+marks[i];
+
+	cout<<"Total:"<<s;
+
+	if(s>=cutoff)
+	cout<<"\nPass\n";
+	else
+	cout<<"\nFail\n";
+	getch();
+ }
+
+
+void STUDENT::setcutoff()
+ {
+	cutoff =86;
+ }
+
+void main()
+ {
+	STUDENT s;
+	while(1)
+	{
+	clrscr();
+		cout<<"1.Enter details\n2.Get details\n3.Get result\n4. Exit"
+		"\nPress to continue.\n";
+		char ch;
+		ch=getch();
+		switch(ch)
+		{
+			case '1':
+				s.getdata();
+				break;
+			case '2':
+				s.showdata();
+				break;
+			case '3':
+				s.showdata();
+				break;
+			case '4':
+				exit(0);
+			default:
+				cout<<"Wrong choice, please try again.\n";
+		}
+	}
+ }              

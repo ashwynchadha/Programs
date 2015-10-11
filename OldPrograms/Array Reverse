@@ -1,0 +1,25 @@
+//REVERSE THE ELEMENTS OF AN ARRAY
+
+#include<iostream.h>
+void main()
+{
+	int arr[50],n,c;
+	cout<<"How many numbers would you like to enter?\n";
+	cin>>n;
+
+	cout<<"Enter the numbers:- \n";
+	for(int i=0;i<n;i++)
+	cin>>arr[i];
+
+	for(i=0;i<n/2;i++)
+	{
+	 c=arr[i];
+	 arr[i]=arr[n-i-1];
+	 arr[n-i-1]=c;
+	}
+
+	cout<<"Reversed array is:- \n";
+
+	for(i=0;i<n;i++)
+	cout<<arr[i]<<". ";
+}         

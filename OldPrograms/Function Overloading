@@ -1,0 +1,61 @@
+//By - Ashwyn SIngh Chadha
+//20. OVERLOADED FUNCTION PRIME FOR FINDING PRIME OR CO PRIME
+#include<iostream.h>
+#include<process.h>
+
+int PRIME(int x)
+{
+	for (int y=2; y<=x/2; y=y+1 )
+		if (x%y==0)
+			return 0;
+
+	return 1;
+
+}
+
+int PRIME(int num1, int num2)
+{
+	int HCF;
+	for(int i=1;i<=num1,i<=num2;i++)
+		if(num1%i==0 && num2%i==0)
+			HCF=i;
+
+	if(HCF==1)
+		return 1;
+	else
+		return 0;
+}
+
+void main()
+{
+	int choice,x,y;
+	while(1)
+	{
+		cout<<"Press:\n1. PRIME.\n2. COPRIME\n3. EXIT\n";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				cout<<"Enter a number.\n";
+				cin>>x;
+				if(PRIME(x))
+					cout<<"It is a prime number.\n";
+				else
+					cout<<"It is not a prime number.\n";
+				break;
+			case 2:
+				cout<<"Enter 2 numbers:\n";
+				cin>>x>>y;
+				if(PRIME(x,y))
+					cout<<"The two numbers are co-prime.\n";
+				else
+					cout<<"The two numbers are not co-prime.\n";
+				break;
+			case 3:
+				exit(0);
+			default:
+				cout<<"Invalid. Please try again.\n";
+		}
+		cout<<endl;
+	}
+}

@@ -1,0 +1,27 @@
+#include<iostream.h>
+#include<conio.h>
+void main()
+{
+	char choice;
+	do
+	{
+	clrscr();
+
+	long double num,res;
+	cout<<"This program calculates factorials\nfor example, \n"
+	"the factorial of 5 (5!) is 5*4*3*2*1.";
+
+	cout<<"\n\nEnter the number for which you would like to calculate the factorial\n";
+	cin>>num;
+	res=1;
+
+	for(int i=num;i>0;i--)
+	res=res*i;
+
+	cout<<"The result is:- "<<res<<endl;
+	cout<<"Press any key to continue, or press 0 to exit:-\n";
+	choice = getche();
+	}while(choice!='0');
+}
+
+      

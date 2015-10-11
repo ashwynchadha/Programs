@@ -1,0 +1,30 @@
+//ENCODER-DECODER (SWAP FIRST AND LAST LETTER)
+#include<fstream.h>
+#include<string.h>
+#include<stdio.h>
+
+int main()
+{
+	ifstream fin("REDUCESP.TXT");
+	ofstream fout("TEMP.TXT");
+	char c;
+	char word[20];
+	int n;
+	while(!fin.eof())
+	{
+		fin>>word;
+		n=strlen(word);
+		c=word[0];
+		word[0]=word[n-1];
+		word[n-1]=c;
+		fout<<word;
+
+		fin.get(c);             //THIS HAS BEEN ADDED AS IF ANOTHER SPACE
+		if(c!='\0')             //IS ADDED AFTER THE LAST WORD, FIN.EOF()
+		fout<<' ';              //WILL RUN ONE MORE TIME
+	}
+
+	remove("REDUCESP.TXT");
+	rename("TEMP.TXT","REDUCESP.TXT");
+return 0;
+}

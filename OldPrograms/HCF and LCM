@@ -1,0 +1,38 @@
+//By - Ashwyn Singh Chadha
+//5. TO DISPLAY HCF, LCM AND WHETHER TWO NUMBERS ARE CO-PRIME
+
+#include<iostream.h>
+void main()
+{
+	while(1)
+	{
+		cout<<"Enter two numbers.\n";
+		int a,b, HCF;
+		cin>>a>>b;
+
+		for(int i=1,j=1;i<=a,j<=b;i++,j++)
+		{
+			if(a%i==0 && b%j==0 && j==i)
+			HCF=j;
+		}
+
+		long LCM=1;
+		while(1)
+		{
+			if(LCM%a==0 && LCM%b==0)
+			break;
+
+			LCM++;
+		}
+
+		cout<<"\nHCF is = "<<HCF<<endl;
+		cout<<"LCM is = "<<LCM<<endl;
+
+		if(HCF==1)
+		cout<<"The numbers are coprime.\n";
+		else
+		cout<<"The numbers are not coprime.\n";
+
+      cout<<endl<<endl;
+	}
+}
