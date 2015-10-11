@@ -1,0 +1,300 @@
+// Final Project Code
+// Ashwyn Chadha, Preston Johnson, Jonathan Lazo, Albert Paladino
+
+int keyy[5], keyx[5][14];
+void Positioning(int y, int x);
+void KeyPress();
+void Origin();
+int Index(char c, int & on)
+{
+	int x = c;
+
+	if(x == ' ')
+		return 36;
+
+	else if( x >= 65 && x <= 90)
+	{
+		on=1;
+		Positioning(keyy[2], keyx[2][0]);
+		KeyPress();
+		Origin();
+		return (x-65);
+	}
+
+	else if (x >= 97 && x <= 122)
+		return ( x-97 );
+
+	else if (x >= 48 && x<= 57)
+		return (x-22);
+
+	else if (x == 46)
+		return 37;
+
+	else if (x == 44)
+		return 38;
+
+	else if (x == 39)
+		return x;
+
+	nxtDisplayString(1, "Indexing failed"); //Failsafe
+		return 0;
+}
+
+void Origin()
+{
+	motor[motorA]=55;
+	motor[motorB]=55;
+	while (SensorValue[S1]==0 || SensorValue[S2]==0)
+	{
+		if (SensorValue[S1] != 0)
+			motor[motorA]=0;
+		if (SensorValue[S2] != 0)
+			motor[motorB]=0;
+	}
+	motor[motorA] = 0;
+	motor[motorB] = 0;
+	wait1Msec(200);
+	nMotorEncoder[motorA]=0;
+	nMotorEncoder[motorB]=0;
+	wait1Msec(500);
+	PlaySound(soundBlip);
+}
+
+
+void mapping(int * keyy) 
+{
+	int count[5] = {8,12,13,14,14};
+	int nline, line = 1;
+	Origin();
+
+	nMotorEncoder[motorA]=0;
+
+	motor[motorA]=-17;
+
+	// this is for detecting the motor encoder values of motor A for the rows
+	//runs 5 times because there are 5 rows
+	for(int rownum=0; rownum<5; rownum++)
+	{
+			//< 300 --> sensing a black key
+			while (SensorRaw[S3] < 300)
+			{
+					//displays value of sensor on the nxt
+					int value = SensorRaw[S3];
+					nxtDisplayString(0,"%d",value);
+			}
+
+			PlaySound(soundBeepBeep);
+			//enters the value of encoder A into the respective array position
+			keyy[rownum] = nMotorEncoder[motorA];
+			nxtDisplayString(line,"%d",keyy[rownum]);
+			//time delay so sensor does not recognize same key twice
+			if (rownum<4)
+				wait1Msec(1000);
+			else
+				wait1Msec(500);
+
+			line++;
+	}
+	Origin();
+	for (int rowcnt=0; rowcnt<5; rowcnt++)
+	{
+	//only runs for rows 1-4 (row 0 is the row with the spacebar)
+		if (rowcnt>0)
+		{
+			//moves in the y direction until motor assembly is on the right row
+			motor[motorA] = -17;
+			while( nMotorEncoder[motorA] > (keyy[rowcnt]-50)){}
+			motor[motorA] = 0;
+		}
+		//moves along the row (horizontal) and gets the encoder value for motor B for every key and stores
+		//it in the corresponding entry/position of the array
+		nline = 1;
+		nMotorEncoder[motorB]=0;
+
+		for(int colnum = 0; colnum <count[rowcnt]; colnum++)
+		{
+			motor[motorB]=-17;
+			//<300 --> means its sensing black
+			while (SensorRaw[S3] <300)
+			{
+					int value = SensorRaw[S3];
+					nxtDisplayString(0,"%d",value);
+			}
+			//plays a sound letting user know that a key is detected
+			PlaySound(soundBeepBeep);
+			keyx[rowcnt][colnum] = nMotorEncoder[motorB];
+			nxtDisplayString(nline,"%d",keyx[rowcnt][colnum]);
+
+			if (colnum==0 && rowcnt >=0 && rowcnt<4)
+				wait1Msec(1000);
+			else
+				wait1Msec(700);
+			nline++;
+		}
+
+		Origin();
+		eraseDisplay();
+	}
+	nxtDisplayString(3, "Mapping successful");
+}
+
+void keymapping(int * encA, int * encB) 
+{
+	encA[0]=keyy[2];   // A
+	encA[1]=keyy[1];   // B
+	encA[2]=keyy[1];   // C
+	encA[3]=keyy[2];   // D
+	encA[4]=keyy[3];   // E
+	encA[5]=keyy[2];   // F
+	encA[6]=keyy[2];   // G
+	encA[7]=keyy[2];   // H
+	encA[8]=keyy[3];   // I
+	encA[9]=keyy[2];   // J
+	encA[10]=keyy[2];  // K
+	encA[11]=keyy[2];  // L
+	encA[12]=keyy[1];  // M
+	encA[13]=keyy[1];  // N
+	encA[14]=keyy[3];  // O
+	encA[15]=keyy[3];  // P
+	encA[16]=keyy[3];  // Q
+	encA[17]=keyy[3];  // R
+	encA[18]=keyy[2];  // S
+	encA[19]=keyy[3];  // T
+	encA[20]=keyy[3];  // U
+	encA[21]=keyy[1];  // V
+	encA[22]=keyy[3];  // W
+	encA[23]=keyy[1];  // X
+	encA[24]=keyy[3];  // Y
+	encA[25]=keyy[1];  // Z
+	encA[26]=keyy[4];  // 0
+	encA[27]=keyy[4];  // 1
+	encA[28]=keyy[4];  // 2
+	encA[29]=keyy[4];  // 3
+	encA[30]=keyy[4];  // 4
+	encA[31]=keyy[4];  // 5
+	encA[32]=keyy[4];  // 6
+	encA[33]=keyy[4];  // 7
+	encA[34]=keyy[4];  // 8
+	encA[35]=keyy[4];  // 9
+	encA[36]=keyy[0];  // SPACE
+	encA[37]=keyy[1];  // PERIOD
+	encA[38]=keyy[1];  // COMMA
+	encA[39]=keyy[2];  // APOSTROPHE
+	encA[40]=keyy[2];  // CAPS
+
+
+	encB[0]=keyx[2][1];   // A
+	encB[1]=keyx[1][5];   // B
+	encB[2]=keyx[1][3];   // C
+	encB[3]=keyx[2][3];   // D
+	encB[4]=keyx[3][3];   // E
+	encB[5]=keyx[2][4];   // F
+	encB[6]=keyx[2][5];   // G
+	encB[7]=keyx[2][6];   // H
+	encB[8]=keyx[3][8];   // I
+	encB[9]=keyx[2][7];   // J
+	encB[10]=keyx[2][8];  // K
+	encB[11]=keyx[2][9];  // L
+	encB[12]=keyx[1][7];  // M
+	encB[13]=keyx[1][6];  // N
+	encB[14]=keyx[3][9];  // O
+	encB[15]=keyx[3][10]; // P
+	encB[16]=keyx[3][1];  // Q
+	encB[17]=keyx[3][4];  // R
+	encB[18]=keyx[2][2];  // S
+	encB[19]=keyx[3][5];  // T
+	encB[20]=keyx[3][7];  // U
+	encB[21]=keyx[1][4];  // V
+	encB[22]=keyx[3][2];  // W
+	encB[23]=keyx[1][2];  // X
+	encB[24]=keyx[3][6];  // Y
+	encB[25]=keyx[1][1];  // Z
+	encB[26]=keyx[4][10]; // 0
+	encB[27]=keyx[4][1];  // 1
+	encB[28]=keyx[4][2];  // 2
+	encB[29]=keyx[4][3];  // 3
+	encB[30]=keyx[4][4];  // 4
+	encB[31]=keyx[4][5];  // 5
+	encB[32]=keyx[4][6];  // 6
+	encB[33]=keyx[4][7];  // 7
+	encB[34]=keyx[4][8];  // 8
+	encB[35]=keyx[4][9];  // 9
+	encB[36]=keyx[0][3];  // SPACE
+	encB[37]=keyx[1][9];  // PERIOD
+	encB[38]=keyx[1][8];	// COMMA
+	encB[39]=keyx[2][11];	// APOSTROPHE
+	encB[40]=keyx[2][0];  //CAPS
+}
+
+void Positioning(int y, int x) 
+{
+	x -= 155;                  //OFFSET TO KEYSTRIKER FROM SENSOR
+	motor[motorA]=-55;
+	motor[motorB]=-55;
+	nMotorEncoder[motorA]=0;
+	nMotorEncoder[motorB]=0;
+	while (nMotorEncoder[motorA]>y || nMotorEncoder[motorB]>x)
+	{
+		if (nMotorEncoder[motorA]<y)
+			motor[motorA]=0;
+		if (nMotorEncoder[motorB]<x)
+			motor[motorB]=0;
+	}
+	motor[motorA] = 0;
+	motor[motorB] = 0;
+}
+
+void KeyPress() //Written by Preston
+{
+	motor[motorC]=100;
+	nMotorEncoder[motorC]=0;
+	while (nMotorEncoder[motorC]<307)
+	{}
+	motor[motorC] = 0;
+}
+
+task main() 
+{
+	SensorType[S1]=sensorTouch;
+	SensorType[S2]=sensorTouch;
+	SensorType[S3]=sensorLightActive;
+	nMotorEncoder[motorA]=0;
+	nMotorEncoder[motorB]=0;
+
+	TFileHandle FileHandle;
+	TFileIOResult Result;
+	string FileName = "Typing.txt";
+	word FileSize;
+	char c=' ';
+	OpenRead(FileHandle, Result, FileName, FileSize);
+	eraseDisplay();
+
+	Origin();
+	int encA[41], encB[41], capslockon=0;
+	time100[T1]=0;
+	mapping(&keyy[0]);
+	keymapping(&encA[0], &encB[0]); // MAPPING DONE
+	int time = time100[T1]/10;
+	nxtDisplayString(2, "Mapping Time: %d", time);
+	while(nNxtButtonPressed!=3); //  PRESS TO START
+	while(nNxtButtonPressed==3);
+	int indexnum=0;
+	while(c!='.')
+	{
+		eraseDisplay();
+		ReadByte(FileHandle, Result, c);
+		indexnum = Index(c, capslockon);
+		Positioning(encA[indexnum], encB[indexnum]);
+		KeyPress();
+		Origin();
+		if(capslockon)
+		{
+				capslockon=0;
+				Positioning(encA[40], encB[40]);
+				KeyPress();
+		}
+		Origin();
+	}
+
+
+}
